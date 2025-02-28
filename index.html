@@ -26,6 +26,22 @@
     <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/AR.js/aframe/build/aframe-ar.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
     <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
+    <style>
+        /* Contenedor del texto flotante con barra de desplazamiento */
+        #info-box {
+            position: fixed;
+            top: 10%;
+            right: 0;
+            width: 50%;
+            height: 80%;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 15px;
+            overflow-y: auto;
+            font-size: 16px;
+            border-radius: 10px;
+        }
+    </style>
 </head>
 <body style="margin: 0; overflow: hidden;">
     <a-scene embedded arjs vr-mode-ui="enabled: false" renderer="logarithmicDepthBuffer: true; alpha: true" gesture-detector>
@@ -45,19 +61,26 @@
                 class="clickable"
                 gesture-handler>
             </a-entity>
-
-            <!-- Texto flotante en la mitad derecha -->
-            <a-entity 
-                position="0.3 0.2 0"
-                text="value: Historia del Modelo\nEl fénix simboliza el renacimiento.\nSe dice que renace de sus cenizas.; 
-                      align: center; 
-                      width: 1.5; 
-                      color: white;">
-            </a-entity>
         </a-marker>
 
         <a-entity camera></a-entity>
     </a-scene>
+
+    <!-- Texto con barra de desplazamiento -->
+    <div id="info-box">
+        <h2>Historia del Fénix</h2>
+        <p>
+            El fénix es un ave mítica que simboliza la inmortalidad, la resurrección y la vida después de la muerte.
+            Se dice que cuando el fénix siente que va a morir, construye un nido de ramas aromáticas y especias, se incendia y renace de sus cenizas.
+            <br><br>
+            Esta historia ha sido contada en muchas culturas, desde el antiguo Egipto hasta la mitología griega y romana.
+            En la cultura china, el fénix representa armonía y prosperidad.
+            <br><br>
+            En la actualidad, el fénix es un símbolo de superación, renacimiento y resiliencia. Se usa en literatura, cine y diversas formas de arte.
+            <br><br>
+            Se dice que cada 500 años el fénix resurge, recordándonos que siempre hay una oportunidad para empezar de nuevo.
+        </p>
+    </div>
 </body>
 </html>
 
