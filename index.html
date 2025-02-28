@@ -1,0 +1,78 @@
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/AR.js/aframe/build/aframe-ar.min.js"></script>
+  </head>
+  <body style="margin: 0; overflow: hidden;">
+    <a-scene embedded arjs> -->
+      <!-- Modelo 3D del monumento -->
+      <!-- <a-entity position="0 0 0">
+        <a-gltf-model src="phoenix_bird/scene.gltf" scale="0.5 0.5 0.5"></a-gltf-model>
+      </a-entity> -->
+      
+      <!-- Cámara AR -->
+      <!-- <a-camera position="0 0 0"></a-camera>
+    </a-scene>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Modelo 3D en AR</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.min.js"></script>
+    <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden;">
+    <a-scene embedded arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+        vr-mode-ui="enabled: false" renderer="logarithmicDepthBuffer: true; alpha: true">
+        
+        <a-assets>
+            <a-asset-item id="bird" src="assets/scene.glb"></a-asset-item>
+        </a-assets>
+
+        <a-marker preset="hiro">
+            <a-entity gltf-model="#bird" scale="0.2 0.2 0.2" position="0 0 0" animation-mixer></a-entity>
+        </a-marker>
+
+        <a-entity camera></a-entity>
+    </a-scene>
+</body>
+</html>
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imagen en Esfera 3D - A-Frame AR</title> -->
+
+    <!-- Librerías de A-Frame y AR.js -->
+    <!-- <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/AR.js@1.7.2/aframe/build/aframe-ar.min.js"></script>
+  </head>
+
+  <body style="margin: 0; overflow: hidden;">
+    <a-scene embedded arjs> -->
+
+      <!-- Esfera con la imagen (Sustituye la URL con tu imagen) -->
+      <!-- <a-sphere src="gato.png
+"
+                position="0 0 -3" 
+                radius="1" 
+                segments-width="32"
+                segments-height="32">
+      </a-sphere> -->
+
+      <!-- Cámara AR -->
+      <!-- <a-camera position="0 0 0"></a-camera>
+
+    </a-scene>
+  </body>
+</html> -->
