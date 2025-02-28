@@ -27,62 +27,77 @@
     <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
     <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
     <style>
-        /* Contenedor del texto flotante con barra de desplazamiento */
+        /* Contenedor principal: divide la pantalla en dos partes (modelo arriba, texto abajo) */
+        #container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Parte superior: contiene el modelo 3D */
+        #model-container {
+            flex: 1; /* Ocupa la mitad superior */
+            position: relative;
+        }
+
+        /* Parte inferior: contiene el texto con desplazamiento */
         #info-box {
-            position: fixed;
-            top: 10%;
-            right: 0;
-            width: 50%;
-            height: 80%;
+            flex: 1; /* Ocupa la mitad inferior */
             background: rgba(0, 0, 0, 0.5);
             color: white;
             padding: 15px;
             overflow-y: auto;
             font-size: 16px;
-            border-radius: 10px;
+            text-align: center;
+            border-top: 2px solid white;
         }
     </style>
 </head>
 <body style="margin: 0; overflow: hidden;">
-    <a-scene embedded arjs vr-mode-ui="enabled: false" renderer="logarithmicDepthBuffer: true; alpha: true" gesture-detector>
-        <a-assets>
-            <a-asset-item id="bird" src="https://cdn.glitch.global/f24dfbcf-5d5a-489d-b6c0-b547e6c91644/asset.glb"></a-asset-item>
-        </a-assets>
+    <div id="container">
+        <!-- Contenedor del modelo 3D (arriba) -->
+        <div id="model-container">
+            <a-scene embedded arjs vr-mode-ui="enabled: false" renderer="logarithmicDepthBuffer: true; alpha: true" gesture-detector>
+                <a-assets>
+                    <a-asset-item id="bird" src="https://cdn.glitch.global/f24dfbcf-5d5a-489d-b6c0-b547e6c91644/asset.glb"></a-asset-item>
+                </a-assets>
 
-        <!-- Marcador HIRO -->
-        <a-marker preset="hiro">
-            <!-- Modelo 3D en la mitad izquierda -->
-            <a-entity 
-                id="bird-model"
-                gltf-model="#bird" 
-                scale="0.006 0.006 0.006" 
-                position="-0.3 0 0"
-                animation-mixer
-                class="clickable"
-                gesture-handler>
-            </a-entity>
-        </a-marker>
+                <!-- Marcador HIRO -->
+                <a-marker preset="hiro">
+                    <a-entity 
+                        id="bird-model"
+                        gltf-model="#bird" 
+                        scale="0.006 0.006 0.006" 
+                        position="0 0 0"
+                        animation-mixer
+                        class="clickable"
+                        gesture-handler>
+                    </a-entity>
+                </a-marker>
 
-        <a-entity camera></a-entity>
-    </a-scene>
+                <a-entity camera></a-entity>
+            </a-scene>
+        </div>
 
-    <!-- Texto con barra de desplazamiento -->
-    <div id="info-box">
-        <h2>Historia del Fénix</h2>
-        <p>
-            El fénix es un ave mítica que simboliza la inmortalidad, la resurrección y la vida después de la muerte.
-            Se dice que cuando el fénix siente que va a morir, construye un nido de ramas aromáticas y especias, se incendia y renace de sus cenizas.
-            <br><br>
-            Esta historia ha sido contada en muchas culturas, desde el antiguo Egipto hasta la mitología griega y romana.
-            En la cultura china, el fénix representa armonía y prosperidad.
-            <br><br>
-            En la actualidad, el fénix es un símbolo de superación, renacimiento y resiliencia. Se usa en literatura, cine y diversas formas de arte.
-            <br><br>
-            Se dice que cada 500 años el fénix resurge, recordándonos que siempre hay una oportunidad para empezar de nuevo.
-        </p>
+        <!-- Contenedor del texto con desplazamiento (abajo) -->
+        <div id="info-box">
+            <h2>Historia del Fénix</h2>
+            <p>
+                El fénix es un ave mítica que simboliza la inmortalidad, la resurrección y la vida después de la muerte.
+                Se dice que cuando el fénix siente que va a morir, construye un nido de ramas aromáticas y especias, se incendia y renace de sus cenizas.
+                <br><br>
+                Esta historia ha sido contada en muchas culturas, desde el antiguo Egipto hasta la mitología griega y romana.
+                En la cultura china, el fénix representa armonía y prosperidad.
+                <br><br>
+                En la actualidad, el fénix es un símbolo de superación, renacimiento y resiliencia. Se usa en literatura, cine y diversas formas de arte.
+                <br><br>
+                Se dice que cada 500 años el fénix resurge, recordándonos que siempre hay una oportunidad para empezar de nuevo.
+            </p>
+        </div>
     </div>
 </body>
 </html>
+
 
 <!-- <!DOCTYPE html>
 <html lang="es">
