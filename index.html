@@ -36,20 +36,27 @@
 
         /* Parte superior: contiene el modelo 3D */
         #model-container {
-            flex: 1; /* Ocupa la mitad superior */
+            flex: 1;
             position: relative;
         }
 
         /* Parte inferior: contiene el texto con desplazamiento */
         #info-box {
-            flex: 1; /* Ocupa la mitad inferior */
+            flex: 1;
             background: rgba(0, 0, 0, 0.5);
             color: white;
             padding: 15px;
-            overflow-y: auto;
+            overflow-y: auto; /* Permite desplazamiento vertical */
             font-size: 16px;
             text-align: center;
             border-top: 2px solid white;
+            max-height: 50vh; /* Evita que se desborde */
+        }
+
+        /* Asegura que el texto sea accesible sin desbordar la pantalla */
+        p {
+            margin: 0;
+            padding-bottom: 20px;
         }
     </style>
 </head>
@@ -62,8 +69,8 @@
                     <a-asset-item id="bird" src="https://cdn.glitch.global/f24dfbcf-5d5a-489d-b6c0-b547e6c91644/asset.glb"></a-asset-item>
                 </a-assets>
 
-                <!-- Marcador HIRO -->
-                <a-marker preset="hiro">
+                <!-- Marcador HIRO con markersAreaEnabled desactivado -->
+                <a-marker preset="hiro" marker-controls="markersAreaEnabled: false">
                     <a-entity 
                         id="bird-model"
                         gltf-model="#bird" 
@@ -97,7 +104,6 @@
     </div>
 </body>
 </html>
-
 <!-- <!DOCTYPE html>
 <html lang="es">
   <head>
