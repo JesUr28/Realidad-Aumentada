@@ -17,16 +17,18 @@
   </body>
 </html> -->
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Modelo 3D en AR</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/AR.js/aframe/build/aframe-ar.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
 </head>
 <body style="margin: 0; overflow: hidden;">
-    <a-scene embedded arjs vr-mode-ui="enabled: false" renderer="logarithmicDepthBuffer: true; alpha: true">
+    <a-scene embedded arjs vr-mode-ui="enabled: false" renderer="logarithmicDepthBuffer: true; alpha: true" gesture-detector>
         <a-assets>
             <a-asset-item id="bird" src="https://cdn.glitch.global/f24dfbcf-5d5a-489d-b6c0-b547e6c91644/asset.glb"></a-asset-item>
         </a-assets>
@@ -34,10 +36,13 @@
         <!-- Marcador HIRO -->
         <a-marker preset="hiro">
             <a-entity 
+                id="bird-model"
                 gltf-model="#bird" 
                 scale="0.008 0.008 0.008" 
                 position="0 0 0"
-                animation-mixer>
+                animation-mixer
+                class="clickable"
+                gesture-handler>
             </a-entity>
         </a-marker>
 
@@ -45,7 +50,6 @@
     </a-scene>
 </body>
 </html>
-
 
 
 <!-- <!DOCTYPE html>
