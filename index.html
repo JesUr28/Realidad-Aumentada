@@ -27,53 +27,37 @@
     <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
     <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
     <style>
-        /* Contenedor principal */
+        /* Contenedor principal: divide la pantalla en dos partes (modelo arriba, texto abajo) */
         #container {
             display: flex;
-            flex-direction: column; /* Asegura que el texto esté abajo */
+            flex-direction: column;
             height: 100vh;
-            position: relative;
         }
 
-        /* Parte superior: Modelo 3D */
+        /* Parte superior: contiene el modelo 3D */
         #model-container {
             flex: 1; /* Ocupa la mitad superior */
             position: relative;
-            width: 100%;
         }
 
-        /* Parte inferior: Texto con desplazamiento */
+        /* Parte inferior: contiene el texto con desplazamiento */
         #info-box {
-            width: 100%;
-            height: 40vh; /* Ocupa 40% de la pantalla */
-            background: rgba(0, 0, 0, 0.6);
+            flex: 1; /* Ocupa la mitad inferior */
+            background: rgba(0, 0, 0, 0.5);
             color: white;
             padding: 15px;
-            overflow-y: auto; /* Permite desplazamiento */
+            overflow-y: auto;
             font-size: 16px;
-            text-align: justify; /* Asegura que el texto se vea bien */
+            text-align: center;
             border-top: 2px solid white;
-        }
-
-        /* Asegurar desplazamiento */
-        body {
-            margin: 0;
-            overflow: auto !important;
-            touch-action: auto;
         }
     </style>
 </head>
 <body style="margin: 0; overflow: hidden;">
     <div id="container">
-        <!-- Contenedor del modelo 3D -->
+        <!-- Contenedor del modelo 3D (arriba) -->
         <div id="model-container">
-            <a-scene 
-                embedded 
-                arjs="sourceType: webcam; debugUIEnabled: false; markersAreaEnabled: false;" 
-                vr-mode-ui="enabled: false" 
-                renderer="logarithmicDepthBuffer: true; alpha: true" 
-                gesture-detector>
-                
+            <a-scene embedded arjs vr-mode-ui="enabled: false" renderer="logarithmicDepthBuffer: true; alpha: true" gesture-detector>
                 <a-assets>
                     <a-asset-item id="bird" src="https://cdn.glitch.global/f24dfbcf-5d5a-489d-b6c0-b547e6c91644/asset.glb"></a-asset-item>
                 </a-assets>
@@ -84,10 +68,10 @@
                         id="bird-model"
                         gltf-model="#bird" 
                         scale="0.006 0.006 0.006" 
-                        position="0 -0.5 0"  <!-- Ajuste de altura -->
+                        position="0 0 0"
                         animation-mixer
                         class="clickable"
-                        gesture-handler> <!-- Habilita manipulación con dedos -->
+                        gesture-handler>
                     </a-entity>
                 </a-marker>
 
@@ -95,7 +79,7 @@
             </a-scene>
         </div>
 
-        <!-- Contenedor del texto -->
+        <!-- Contenedor del texto con desplazamiento (abajo) -->
         <div id="info-box">
             <h2>Historia del Fénix</h2>
             <p>
@@ -113,6 +97,7 @@
     </div>
 </body>
 </html>
+
 <!-- <!DOCTYPE html>
 <html lang="es">
   <head>
