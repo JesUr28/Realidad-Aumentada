@@ -17,7 +17,7 @@
   </body>
 </html> -->
 
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -35,14 +35,24 @@
 
         <!-- Marcador HIRO -->
         <a-marker preset="hiro">
+            <!-- Modelo 3D en la mitad izquierda -->
             <a-entity 
                 id="bird-model"
                 gltf-model="#bird" 
-                scale="0.008 0.008 0.008" 
-                position="0 0 0"
-                animation-mixer="loop: repeat"
+                scale="0.006 0.006 0.006" 
+                position="-0.3 0 0"
+                animation-mixer
                 class="clickable"
                 gesture-handler>
+            </a-entity>
+
+            <!-- Texto flotante en la mitad derecha -->
+            <a-entity 
+                position="0.3 0.2 0"
+                text="value: Historia del Modelo\nEl fénix simboliza el renacimiento.\nSe dice que renace de sus cenizas.; 
+                      align: center; 
+                      width: 1.5; 
+                      color: white;">
             </a-entity>
         </a-marker>
 
