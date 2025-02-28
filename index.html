@@ -17,7 +17,7 @@
   </body>
 </html> -->
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -28,17 +28,9 @@
     <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
 </head>
 <body style="margin: 0; overflow: hidden;">
-    <a-scene 
-        embedded 
-        arjs vr-mode-ui="enabled: false" 
-        renderer="logarithmicDepthBuffer: true; alpha: true"
-        gesture-detector>
-        
+    <a-scene embedded arjs vr-mode-ui="enabled: false" renderer="logarithmicDepthBuffer: true; alpha: true" gesture-detector>
         <a-assets>
-            <a-asset-item 
-                id="bird" 
-                src="https://cdn.glitch.global/f24dfbcf-5d5a-489d-b6c0-b547e6c91644/asset.glb">
-            </a-asset-item>
+            <a-asset-item id="bird" src="https://cdn.glitch.global/f24dfbcf-5d5a-489d-b6c0-b547e6c91644/asset.glb"></a-asset-item>
         </a-assets>
 
         <!-- Marcador HIRO -->
@@ -48,9 +40,9 @@
                 gltf-model="#bird" 
                 scale="0.008 0.008 0.008" 
                 position="0 0 0"
-                animation-mixer="clip: *"  <!-- 🔹 Activa todas las animaciones -->
+                animation-mixer
                 class="clickable"
-                gesture-handler>  <!-- 🔹 Permite rotar con gestos -->
+                gesture-handler>
             </a-entity>
         </a-marker>
 
