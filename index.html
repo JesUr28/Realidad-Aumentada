@@ -9,20 +9,20 @@
     <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
     <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
     <style>
-        /* Contenedor principal */
+        /* Contenedor principal: divide la pantalla en dos partes (modelo arriba, texto abajo) */
         #container {
             display: flex;
             flex-direction: column;
             height: 100vh;
         }
 
-        /* Parte superior: modelo 3D */
+        /* Parte superior: contiene el modelo 3D */
         #model-container {
             flex: 1;
             position: relative;
         }
 
-        /* Parte inferior: texto */
+        /* Parte inferior: contiene el texto con desplazamiento */
         #info-box {
             flex: 1;
             background: rgba(0, 0, 0, 0.5);
@@ -37,8 +37,10 @@
             flex-direction: column;
             align-items: center;
         }
+
         #info-box h2 {
-                    text-align: center;
+            text-align: center;
+            
         }
 
         /* Limita el ancho del contenido */
@@ -48,9 +50,9 @@
             width: 90%;
         }
 
-        /* Estilos para el botón */
+        /* Estilos para el botón de reproducción */
         .speak-button {
-            margin-bottom: 15px;
+            margin-top: 15px;
             padding: 10px 20px;
             background-color: #4CAF50;
             color: white;
@@ -93,11 +95,9 @@
 
         <!-- Contenedor del texto -->
         <div id="info-box">
-            <!-- Botón con icono -->
-            <button id="speak-btn" class="speak-button">🔊 Reproducir Texto</button>
-            
+            <!-- Botón para reproducir el texto -->
+            <button id="speak-btn" class="speak-button">Reproducir Texto</button>
             <h2>Historia del Fénix</h2>
-            
             <p id="phoenix-text">
                 El fénix es un ave mítica que simboliza la inmortalidad, la resurrección y la vida después de la muerte.
                 Se dice que cuando el fénix siente que va a morir, construye un nido de ramas aromáticas y especias, se incendia y renace de sus cenizas.
@@ -119,54 +119,49 @@
                 <br><br>
                 Se dice que cada 500 años el fénix resurge, recordándonos que siempre hay una oportunidad para empezar de nuevo.
             </p>
+            
         </div>
     </div>
 
     <script>
         let synth = window.speechSynthesis;
-        let utterance = null;
-        let isPaused = false;
+        let isSpeaking = false; // Para controlar la reproducción
         const speakBtn = document.getElementById('speak-btn');
         const textToSpeak = document.getElementById('phoenix-text').innerText;
 
         speakBtn.addEventListener('click', () => {
-            if (synth.speaking) {
-                if (!isPaused) {
-                    // Pausar la narración
-                    synth.pause();
-                    isPaused = true;
-                    speakBtn.innerText = "▶️ Continuar Texto";
-                } else {
-                    // Reanudar la narración
-                    synth.resume();
-                    isPaused = false;
-                    speakBtn.innerText = "⏸️ Pausar Texto";
-                }
+            if (isSpeaking) {
+                // Si ya está hablando, detenemos la reproducción
+                synth.cancel();
+                isSpeaking = false;
+                speakBtn.innerText = "Reproducir Texto";
             } else {
-                // Iniciar o reiniciar la narración
-                utterance = new SpeechSynthesisUtterance(textToSpeak);
+                // Crear el objeto de texto a voz
+                const utterance = new SpeechSynthesisUtterance(textToSpeak);
                 utterance.lang = 'es-ES'; // Español de España
-                utterance.rate = 1.0;
-                utterance.pitch = 1.0;
+                utterance.rate = 1.0; // Velocidad normal
+                utterance.pitch = 1.0; // Tono normal
 
-                // Cambiar el icono cuando empieza a hablar
+                // Al empezar a hablar, cambiamos el estado del botón
                 utterance.onstart = () => {
-                    speakBtn.innerText = "⏸️ Pausar Texto";
+                    isSpeaking = true;
+                    speakBtn.innerText = "Detener Reproducción";
                 };
 
-                // Restaurar el botón cuando termina
+                // Cuando termine, reiniciamos el botón
                 utterance.onend = () => {
-                    speakBtn.innerText = "🔄 Reproducir Texto";
-                    isPaused = false;
+                    isSpeaking = false;
+                    speakBtn.innerText = "Reproducir Texto";
                 };
 
-                // Reproducir el texto
+                // Reproducimos el texto
                 synth.speak(utterance);
             }
         });
     </script>
 </body>
 </html>
+
 <!-- <!DOCTYPE html>
 <html>
   <head>
