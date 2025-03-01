@@ -49,7 +49,7 @@
     <div id="container">
         <!-- Contenedor del modelo 3D (arriba) -->
         <div id="model-container">
-            <a-scene embedded arjs vr-mode-ui="enabled: false" renderer="logarithmicDepthBuffer: true; alpha: true" gesture-detector>
+            <a-scene embedded arjs="detectionMode: mono_and_matrix; debugUIEnabled: false" vr-mode-ui="enabled: false" renderer="logarithmicDepthBuffer: true; alpha: true" gesture-detector>
                 <a-assets>
                     <a-asset-item id="bird" src="https://cdn.glitch.global/f24dfbcf-5d5a-489d-b6c0-b547e6c91644/asset.glb"></a-asset-item>
                 </a-assets>
