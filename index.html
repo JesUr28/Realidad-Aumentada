@@ -69,7 +69,14 @@
     <div id="container">
         <!-- Contenedor del modelo 3D -->
         <div id="model-container">
-            <a-scene embedded arjs vr-mode-ui="enabled: false" renderer="logarithmicDepthBuffer: true; alpha: true" gesture-detector>
+            <a-scene 
+                embedded 
+                arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;" 
+                vr-mode-ui="enabled: false" 
+                renderer="logarithmicDepthBuffer: true; alpha: true" 
+                gesture-detector 
+                style="width: 100vw; height: 100vh;">
+                
                 <a-assets>
                     <a-asset-item id="bird" src="https://cdn.glitch.global/f24dfbcf-5d5a-489d-b6c0-b547e6c91644/asset.glb"></a-asset-item>
                 </a-assets>
@@ -109,7 +116,6 @@
     </div>
 </body>
 </html>
-
 <!-- <!DOCTYPE html>
 <html lang="es">
   <head>
