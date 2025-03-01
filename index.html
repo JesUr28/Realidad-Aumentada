@@ -18,7 +18,7 @@
 
         /* Parte superior: contiene el modelo 3D */
         #model-container {
-            flex: 1; /* Ocupa la mitad superior */
+            flex: 1;
             position: relative;
         }
 
@@ -28,7 +28,7 @@
             background: rgba(0, 0, 0, 0.5);
             color: white;
             padding: 20px;
-            padding-bottom: 115px;
+            padding-bottom: 70px;
             overflow-y: auto;
             font-size: 16px;
             text-align: justify;
@@ -38,17 +38,33 @@
             align-items: center;
         }
 
-        /* Limita el ancho del contenido para evitar que ocupe todo el ancho de la pantalla */
+        /* Limita el ancho del contenido */
         #info-box h2,
         #info-box p {
             max-width: 300px;
             width: 90%;
         }
+
+        /* Estilos para el botón de reproducción */
+        .speak-button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .speak-button:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body style="margin: 0; overflow: hidden;">
     <div id="container">
-        <!-- Contenedor del modelo 3D (arriba) -->
+        <!-- Contenedor del modelo 3D -->
         <div id="model-container">
             <a-scene embedded arjs="detectionMode: mono_and_matrix; debugUIEnabled: false" vr-mode-ui="enabled: false" renderer="logarithmicDepthBuffer: true; alpha: true" gesture-detector>
                 <a-assets>
@@ -72,10 +88,10 @@
             </a-scene>
         </div>
 
-        <!-- Contenedor del texto con desplazamiento (abajo) -->
+        <!-- Contenedor del texto -->
         <div id="info-box">
             <h2>Historia del Fénix</h2>
-            <p>
+            <p id="phoenix-text">
                 El fénix es un ave mítica que simboliza la inmortalidad, la resurrección y la vida después de la muerte.
                 Se dice que cuando el fénix siente que va a morir, construye un nido de ramas aromáticas y especias, se incendia y renace de sus cenizas.
                 <br><br>
@@ -85,23 +101,48 @@
                 En la actualidad, el fénix es un símbolo de superación, renacimiento y resiliencia. Se usa en literatura, cine y diversas formas de arte.
                 <br><br>
                 Se dice que cada 500 años el fénix resurge, recordándonos que siempre hay una oportunidad para empezar de nuevo.
-                <br><br>
-                Esta historia ha sido contada en muchas culturas, desde el antiguo Egipto hasta la mitología griega y romana.
-                En la cultura china, el fénix representa armonía y prosperidad.
-                <br><br>
-                En la actualidad, el fénix es un símbolo de superación, renacimiento y resiliencia. Se usa en literatura, cine y diversas formas de arte.
-                <br><br>
-                Se dice que cada 500 años el fénix resurge, recordándonos que siempre hay una oportunidad para empezar de nuevo.
-                <br><br>
-                Esta historia ha sido contada en muchas culturas, desde el antiguo Egipto hasta la mitología griega y romana.
-                En la cultura china, el fénix representa armonía y prosperidad.
-                <br><br>
-                En la actualidad, el fénix es un símbolo de superación, renacimiento y resiliencia. Se usa en literatura, cine y diversas formas de arte.
-                <br><br>
-                Se dice que cada 500 años el fénix resurge, recordándonos que siempre hay una oportunidad para empezar de nuevo.
             </p>
+            <!-- Botón para reproducir el texto -->
+            <button id="speak-btn" class="speak-button">Reproducir Texto</button>
         </div>
     </div>
+
+    <script>
+        let synth = window.speechSynthesis;
+        let isSpeaking = false; // Para controlar la reproducción
+        const speakBtn = document.getElementById('speak-btn');
+        const textToSpeak = document.getElementById('phoenix-text').innerText;
+
+        speakBtn.addEventListener('click', () => {
+            if (isSpeaking) {
+                // Si ya está hablando, detenemos la reproducción
+                synth.cancel();
+                isSpeaking = false;
+                speakBtn.innerText = "Reproducir Texto";
+            } else {
+                // Crear el objeto de texto a voz
+                const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                utterance.lang = 'es-ES'; // Español de España
+                utterance.rate = 1.0; // Velocidad normal
+                utterance.pitch = 1.0; // Tono normal
+
+                // Al empezar a hablar, cambiamos el estado del botón
+                utterance.onstart = () => {
+                    isSpeaking = true;
+                    speakBtn.innerText = "Detener Reproducción";
+                };
+
+                // Cuando termine, reiniciamos el botón
+                utterance.onend = () => {
+                    isSpeaking = false;
+                    speakBtn.innerText = "Reproducir Texto";
+                };
+
+                // Reproducimos el texto
+                synth.speak(utterance);
+            }
+        });
+    </script>
 </body>
 </html>
 
