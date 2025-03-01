@@ -27,15 +27,15 @@
             flex: 1;
             background: rgba(0, 0, 0, 0.5);
             color: white;
-            padding: 20px;
+            padding: 15px;
             overflow-y: auto;
             font-size: 16px;
-            text-align: justify;
+            text-align: center;
             border-top: 2px solid white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            max-height: 45vh; /* Limita la altura máxima */
+            min-height: 40vh; /* Asegura que siempre tenga espacio */
         }
+
 
         /* Limita el ancho del contenido para evitar que ocupe todo el ancho de la pantalla */
         #info-box h2,
