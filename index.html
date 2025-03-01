@@ -21,13 +21,14 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modelo 3D en AR</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/AR.js/aframe/build/aframe-ar.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
     <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
     <style>
-        /* Contenedor principal */
+        /* Contenedor principal: divide la pantalla en dos partes (modelo arriba, texto abajo) */
         #container {
             display: flex;
             flex-direction: column;
@@ -36,22 +37,16 @@
             overflow: hidden;
         }
 
-        /* Contenedor del modelo 3D */
+        /* Parte superior: contiene el modelo 3D */
         #model-container {
             flex: 1;
-            width: 100vw;
-            height: 50vh; /* La mitad de la pantalla */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
+            position: relative;
+            width: 100%;
         }
 
-        /* Contenedor del texto */
+        /* Parte inferior: contiene el texto con desplazamiento */
         #info-box {
             flex: 1;
-            width: 100vw;
-            height: 50vh; /* La otra mitad de la pantalla */
             background: rgba(0, 0, 0, 0.7);
             color: white;
             padding: 15px;
@@ -60,23 +55,19 @@
             font-size: 16px;
             text-align: justify;
             border-top: 2px solid white;
-            white-space: normal;
-            word-wrap: break-word;
+            max-width: 100%;
+        }
+
+        #info-box h2 {
+            text-align: center;
         }
     </style>
 </head>
 <body style="margin: 0; overflow: hidden;">
     <div id="container">
-        <!-- Contenedor del modelo 3D -->
+        <!-- Contenedor del modelo 3D (arriba) -->
         <div id="model-container">
-            <a-scene 
-                embedded 
-                arjs="sourceType: webcam; videoTexture: true; debugUIEnabled: false;" 
-                vr-mode-ui="enabled: false" 
-                renderer="logarithmicDepthBuffer: true; alpha: true" 
-                gesture-detector 
-                style="width: 100vw; height: 100vh;">
-                
+            <a-scene embedded arjs="detectionMode: mono_and_matrix; debugUIEnabled: false" vr-mode-ui="enabled: false" renderer="logarithmicDepthBuffer: true; alpha: true" gesture-detector>
                 <a-assets>
                     <a-asset-item id="bird" src="https://cdn.glitch.global/f24dfbcf-5d5a-489d-b6c0-b547e6c91644/asset.glb"></a-asset-item>
                 </a-assets>
@@ -87,7 +78,7 @@
                         id="bird-model"
                         gltf-model="#bird" 
                         scale="0.006 0.006 0.006" 
-                        position="0 0 0" 
+                        position="0 0 0"
                         animation-mixer
                         class="clickable"
                         gesture-handler>
@@ -98,7 +89,7 @@
             </a-scene>
         </div>
 
-        <!-- Contenedor del texto -->
+        <!-- Contenedor del texto con desplazamiento (abajo) -->
         <div id="info-box">
             <h2>Historia del Fénix</h2>
             <p>
@@ -116,6 +107,7 @@
     </div>
 </body>
 </html>
+
 <!-- <!DOCTYPE html>
 <html lang="es">
   <head>
