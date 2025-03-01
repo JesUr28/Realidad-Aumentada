@@ -33,6 +33,11 @@
             overflow: hidden;
         }
 
+        /* Ocultar el texto de depuración de AR.js */
+        #debug {
+            display: none !important;
+        }
+
         /* Contenedor del modelo 3D */
         #model-container {
             width: 100%;
@@ -40,32 +45,29 @@
             position: relative;
         }
 
-        /* Mantiene el texto SIEMPRE visible */
+        /* Texto informativo (se mostrará abajo sin interferencias) */
         #info-box {
-            position: absolute;
+            position: fixed;
             bottom: 0;
             width: 100%;
-            max-height: 50vh;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
             color: white;
             padding: 15px;
-            overflow-y: auto;
             text-align: center;
             font-size: 16px;
             border-top: 2px solid white;
-            z-index: 10; /* Se asegura que quede arriba */
-            pointer-events: auto; /* Permite interacción */
+            z-index: 10;
         }
 
-        /* Evita que AR.js interfiera con la capa de texto */
+        /* Asegurar que la escena AR no interfiera con el texto */
         a-scene {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
+            height: 100%;
             z-index: 0;
-            pointer-events: none; /* Evita bloquear interacción con info-box */
+            pointer-events: auto;
         }
     </style>
 </head>
@@ -86,7 +88,7 @@
                     position="0 0 0"
                     animation-mixer
                     class="clickable"
-                    gesture-handler>
+                    gesture-handler> <!-- Permite mover con los dedos -->
                 </a-entity>
             </a-marker>
 
@@ -94,7 +96,7 @@
         </a-scene>
     </div>
 
-    <!-- Contenedor del texto (SIEMPRE VISIBLE) -->
+    <!-- Contenedor del texto (ahora fijo y sin interferencias) -->
     <div id="info-box">
         <h2>Historia del Fénix</h2>
         <p>
