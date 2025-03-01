@@ -21,92 +21,97 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modelo 3D en AR</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/AR.js/aframe/build/aframe-ar.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
     <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
     <style>
-        /* Contenedor principal: divide la pantalla en dos partes (modelo arriba, texto abajo) */
-        #container {
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            width: 100vw;
+        /* Contenedor principal */
+        body {
+            margin: 0;
             overflow: hidden;
         }
 
-        /* Parte superior: contiene el modelo 3D */
+        /* Contenedor del modelo 3D */
         #model-container {
-            flex: 1;
-            position: relative;
             width: 100%;
+            height: 100vh;
+            position: relative;
         }
 
-        /* Parte inferior: contiene el texto con desplazamiento */
+        /* Mantiene el texto SIEMPRE visible */
         #info-box {
-            flex: 1;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            max-height: 50vh;
             background: rgba(0, 0, 0, 0.7);
             color: white;
             padding: 15px;
             overflow-y: auto;
-            overflow-x: hidden;
+            text-align: center;
             font-size: 16px;
-            text-align: justify;
             border-top: 2px solid white;
-            max-width: 100%;
+            z-index: 10; /* Se asegura que quede arriba */
+            pointer-events: auto; /* Permite interacción */
         }
 
-        #info-box h2 {
-            text-align: center;
+        /* Evita que AR.js interfiera con la capa de texto */
+        a-scene {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none; /* Evita bloquear interacción con info-box */
         }
     </style>
 </head>
-<body style="margin: 0; overflow: hidden;">
-    <div id="container">
-        <!-- Contenedor del modelo 3D (arriba) -->
-        <div id="model-container">
-            <a-scene embedded arjs="detectionMode: mono_and_matrix; debugUIEnabled: false" vr-mode-ui="enabled: false" renderer="logarithmicDepthBuffer: true; alpha: true" gesture-detector>
-                <a-assets>
-                    <a-asset-item id="bird" src="https://cdn.glitch.global/f24dfbcf-5d5a-489d-b6c0-b547e6c91644/asset.glb"></a-asset-item>
-                </a-assets>
+<body>
+    <div id="model-container">
+        <!-- Escena de AR.js -->
+        <a-scene embedded arjs vr-mode-ui="enabled: false" renderer="logarithmicDepthBuffer: true; alpha: true">
+            <a-assets>
+                <a-asset-item id="bird" src="https://cdn.glitch.global/f24dfbcf-5d5a-489d-b6c0-b547e6c91644/asset.glb"></a-asset-item>
+            </a-assets>
 
-                <!-- Marcador HIRO -->
-                <a-marker preset="hiro">
-                    <a-entity 
-                        id="bird-model"
-                        gltf-model="#bird" 
-                        scale="0.006 0.006 0.006" 
-                        position="0 0 0"
-                        animation-mixer
-                        class="clickable"
-                        gesture-handler>
-                    </a-entity>
-                </a-marker>
+            <!-- Marcador HIRO -->
+            <a-marker preset="hiro">
+                <a-entity 
+                    id="bird-model"
+                    gltf-model="#bird" 
+                    scale="0.006 0.006 0.006" 
+                    position="0 0 0"
+                    animation-mixer
+                    class="clickable"
+                    gesture-handler>
+                </a-entity>
+            </a-marker>
 
-                <a-entity camera></a-entity>
-            </a-scene>
-        </div>
+            <a-entity camera></a-entity>
+        </a-scene>
+    </div>
 
-        <!-- Contenedor del texto con desplazamiento (abajo) -->
-        <div id="info-box">
-            <h2>Historia del Fénix</h2>
-            <p>
-                El fénix es un ave mítica que simboliza la inmortalidad, la resurrección y la vida después de la muerte.
-                Se dice que cuando el fénix siente que va a morir, construye un nido de ramas aromáticas y especias, se incendia y renace de sus cenizas.
-                <br><br>
-                Esta historia ha sido contada en muchas culturas, desde el antiguo Egipto hasta la mitología griega y romana.
-                En la cultura china, el fénix representa armonía y prosperidad.
-                <br><br>
-                En la actualidad, el fénix es un símbolo de superación, renacimiento y resiliencia. Se usa en literatura, cine y diversas formas de arte.
-                <br><br>
-                Se dice que cada 500 años el fénix resurge, recordándonos que siempre hay una oportunidad para empezar de nuevo.
-            </p>
-        </div>
+    <!-- Contenedor del texto (SIEMPRE VISIBLE) -->
+    <div id="info-box">
+        <h2>Historia del Fénix</h2>
+        <p>
+            El fénix es un ave mítica que simboliza la inmortalidad, la resurrección y la vida después de la muerte.
+            Se dice que cuando el fénix siente que va a morir, construye un nido de ramas aromáticas y especias, se incendia y renace de sus cenizas.
+            <br><br>
+            Esta historia ha sido contada en muchas culturas, desde el antiguo Egipto hasta la mitología griega y romana.
+            En la cultura china, el fénix representa armonía y prosperidad.
+            <br><br>
+            En la actualidad, el fénix es un símbolo de superación, renacimiento y resiliencia. Se usa en literatura, cine y diversas formas de arte.
+            <br><br>
+            Se dice que cada 500 años el fénix resurge, recordándonos que siempre hay una oportunidad para empezar de nuevo.
+        </p>
     </div>
 </body>
 </html>
+
 
 <!-- <!DOCTYPE html>
 <html lang="es">
